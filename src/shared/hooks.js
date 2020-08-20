@@ -1,10 +1,11 @@
-import { useMemo } from 'react';
+import { useMemo } from 'react'
 
-import utils from './localeUtils';
-import getLanguageText from './localeLanguages';
+import utils from './localeUtils'
+import getLanguageText from './localeLanguages'
 
-const useLocaleUtils = locale => useMemo(() => utils(locale), [locale]);
+const useLocaleUtils = locale => useMemo(() => utils(locale), [locale])
 
-const useLocaleLanguage = locale => useMemo(() => getLanguageText(locale), [locale]);
+const useLocaleLanguage = locale =>
+  useMemo(() => getLanguageText(locale), [locale])
 
-export { useLocaleUtils, useLocaleLanguage };
+export { useLocaleUtils, useLocaleLanguage }

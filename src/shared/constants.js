@@ -1,4 +1,15 @@
-export const PERSIAN_NUMBERS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+export const PERSIAN_NUMBERS = [
+  '۰',
+  '۱',
+  '۲',
+  '۳',
+  '۴',
+  '۵',
+  '۶',
+  '۷',
+  '۸',
+  '۹',
+]
 
 export const PERSIAN_MONTHS = [
   'فروردین',
@@ -13,7 +24,7 @@ export const PERSIAN_MONTHS = [
   'دی',
   'بهمن',
   'اسفند',
-];
+]
 
 export const GREGORIAN_MONTHS = [
   'January',
@@ -28,7 +39,7 @@ export const GREGORIAN_MONTHS = [
   'October',
   'November',
   'December',
-];
+]
 
 export const PERSIAN_WEEK_DAYS = [
   {
@@ -60,7 +71,7 @@ export const PERSIAN_WEEK_DAYS = [
     short: 'ج',
     isWeekend: true,
   },
-];
+]
 
 export const GREGORIAN_WEEK_DAYS = [
   {
@@ -93,12 +104,12 @@ export const GREGORIAN_WEEK_DAYS = [
     short: 'S',
     isWeekend: true,
   },
-];
+]
 
-export const MINIMUM_SELECTABLE_YEAR_SUBTRACT = 100;
+export const MINIMUM_SELECTABLE_YEAR_SUBTRACT = 100
 
-export const MAXIMUM_SELECTABLE_YEAR_SUM = 50;
+export const MAXIMUM_SELECTABLE_YEAR_SUM = 50
 
-export const TYPE_SINGLE_DATE = 'SINGLE_DATE';
-export const TYPE_RANGE = 'RANGE';
-export const TYPE_MUTLI_DATE = 'MUTLI_DATE';
+export const TYPE_SINGLE_DATE = 'SINGLE_DATE'
+export const TYPE_RANGE = 'RANGE'
+export const TYPE_MUTLI_DATE = 'MUTLI_DATE'

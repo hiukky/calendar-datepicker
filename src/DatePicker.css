@@ -344,12 +344,22 @@
 }
 
 .Calendar__yearSelectorWrapper::after {
-  background-image: linear-gradient(to bottom, #fff, #fff 10%, rgba(245, 245, 245, 0));
+  background-image: linear-gradient(
+    to bottom,
+    #fff,
+    #fff 10%,
+    rgba(245, 245, 245, 0)
+  );
   top: -0.1em;
 }
 
 .Calendar__yearSelectorWrapper::before {
-  background-image: linear-gradient(to top, #fff, #fff 10%, rgba(245, 245, 245, 0));
+  background-image: linear-gradient(
+    to top,
+    #fff,
+    #fff 10%,
+    rgba(245, 245, 245, 0)
+  );
   bottom: 0;
 }
 
@@ -421,8 +431,10 @@
   transition: 0.3s;
 }
 
-.Calendar__monthSelectorItem:not(.-active) .Calendar__monthSelectorItemText:not(:disabled):hover,
-.Calendar__yearSelectorItem:not(.-active) .Calendar__yearSelectorText:not(:disabled):hover {
+.Calendar__monthSelectorItem:not(.-active)
+  .Calendar__monthSelectorItemText:not(:disabled):hover,
+.Calendar__yearSelectorItem:not(.-active)
+  .Calendar__yearSelectorText:not(:disabled):hover {
   background: #f5f5f5;
 }
 

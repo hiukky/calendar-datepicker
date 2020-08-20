@@ -1,10 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react'
 
-import { getDateAccordingToMonth, shallowClone, getValueType } from './shared/generalUtils';
-import { TYPE_SINGLE_DATE, TYPE_RANGE, TYPE_MUTLI_DATE } from './shared/constants';
-import { useLocaleUtils, useLocaleLanguage } from './shared/hooks';
+import {
+  getDateAccordingToMonth,
+  shallowClone,
+  getValueType,
+} from './shared/generalUtils'
+import {
+  TYPE_SINGLE_DATE,
+  TYPE_RANGE,
+  TYPE_MUTLI_DATE,
+} from './shared/constants'
+import { useLocaleUtils, useLocaleLanguage } from './shared/hooks'
 
-import { Header, MonthSelector, YearSelector, DaysList } from './components';
+import { Header, MonthSelector, YearSelector, DaysList } from './components'
 
 const Calendar = ({
   value,
@@ -29,88 +37,95 @@ const Calendar = ({
   renderFooter,
   customDaysClassName,
 }) => {
-  const calendarElement = useRef(null);
+  const calendarElement = useRef(null)
   const [mainState, setMainState] = useState({
     activeDate: null,
     monthChangeDirection: '',
     isMonthSelectorOpen: false,
     isYearSelectorOpen: false,
-  });
+  })
 
   useEffect(() => {
     const handleKeyUp = ({ key }) => {
       /* istanbul ignore else */
-      if (key === 'Tab') calendarElement.current.classList.remove('-noFocusOutline');
-    };
-    calendarElement.current.addEventListener('keyup', handleKeyUp, false);
+      if (key === 'Tab')
+        calendarElement.current.classList.remove('-noFocusOutline')
+    }
+    calendarElement.current.addEventListener('keyup', handleKeyUp, false)
     return () => {
-      calendarElement.current.removeEventListener('keyup', handleKeyUp, false);
-    };
-  });
+      calendarElement.current.removeEventListener('keyup', handleKeyUp, false)
+    }
+  })
 
-  const { getToday } = useLocaleUtils(locale);
-  const { weekDays: weekDaysList, isRtl } = useLocaleLanguage(locale);
-  const today = getToday();
+  const { getToday } = useLocaleUtils(locale)
+  const { weekDays: weekDaysList, isRtl } = useLocaleLanguage(locale)
+  const today = getToday()
 
   const createStateToggler = property => () => {
-    setMainState({ ...mainState, [property]: !mainState[property] });
-  };
+    setMainState({ ...mainState, [property]: !mainState[property] })
+  }
 
-  const toggleMonthSelector = createStateToggler('isMonthSelectorOpen');
-  const toggleYearSelector = createStateToggler('isYearSelectorOpen');
+  const toggleMonthSelector = createStateToggler('isMonthSelectorOpen')
+  const toggleYearSelector = createStateToggler('isYearSelectorOpen')
 
   const getComputedActiveDate = () => {
-    const valueType = getValueType(value);
-    if (valueType === TYPE_MUTLI_DATE && value.length) return shallowClone(value[0]);
-    if (valueType === TYPE_SINGLE_DATE && value) return shallowClone(value);
-    if (valueType === TYPE_RANGE && value.from) return shallowClone(value.from);
-    return shallowClone(today);
-  };
+    const valueType = getValueType(value)
+    if (valueType === TYPE_MUTLI_DATE && value.length)
+      return shallowClone(value[0])
+    if (valueType === TYPE_SINGLE_DATE && value) return shallowClone(value)
+    if (valueType === TYPE_RANGE && value.from) return shallowClone(value.from)
+    return shallowClone(today)
+  }
 
   const activeDate = mainState.activeDate
     ? shallowClone(mainState.activeDate)
-    : getComputedActiveDate();
+    : getComputedActiveDate()
 
   const weekdays = weekDaysList.map(weekDay => (
     <abbr key={weekDay.name} title={weekDay.name} className="Calendar__weekDay">
       {weekDay.short}
     </abbr>
-  ));
+  ))
 
   const handleMonthChange = direction => {
     setMainState({
       ...mainState,
       monthChangeDirection: direction,
-    });
-  };
+    })
+  }
 
   const updateDate = () => {
     setMainState({
       ...mainState,
-      activeDate: getDateAccordingToMonth(activeDate, mainState.monthChangeDirection),
+      activeDate: getDateAccordingToMonth(
+        activeDate,
+        mainState.monthChangeDirection,
+      ),
       monthChangeDirection: '',
-    });
-  };
+    })
+  }
 
   const selectMonth = newMonthNumber => {
     setMainState({
       ...mainState,
       activeDate: { ...activeDate, month: newMonthNumber },
       isMonthSelectorOpen: false,
-    });
-  };
+    })
+  }
 
   const selectYear = year => {
     setMainState({
       ...mainState,
       activeDate: { ...activeDate, year },
       isYearSelectorOpen: false,
-    });
-  };
+    })
+  }
 
   return (
     <div
-      className={`Calendar -noFocusOutline ${calendarClassName} -${isRtl ? 'rtl' : 'ltr'}`}
+      className={`Calendar -noFocusOutline ${calendarClassName} -${
+        isRtl ? 'rtl' : 'ltr'
+      }`}
       role="grid"
       style={{
         '--cl-color-primary': colorPrimary,
@@ -172,12 +187,14 @@ const Calendar = ({
         locale={locale}
         shouldHighlightWeekends={shouldHighlightWeekends}
         customDaysClassName={customDaysClassName}
-        isQuickSelectorOpen={mainState.isYearSelectorOpen || mainState.isMonthSelectorOpen}
+        isQuickSelectorOpen={
+          mainState.isYearSelectorOpen || mainState.isMonthSelectorOpen
+        }
       />
       <div className="Calendar__footer">{renderFooter()}</div>
     </div>
-  );
-};
+  )
+}
 
 Calendar.defaultProps = {
   minimumDate: null,
@@ -190,6 +207,6 @@ Calendar.defaultProps = {
   value: null,
   renderFooter: () => null,
   customDaysClassName: [],
-};
+}
 
-export { Calendar };
+export { Calendar }
