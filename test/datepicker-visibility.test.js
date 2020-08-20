@@ -167,6 +167,7 @@ describe('DatePicker Visibility', () => {
     input.focus()
 
     const rangeEnd = getAllByText('5')[0]
+
     // calendar still open
     expect(queryByTestId('calendar-container')).toBeInTheDocument()
 
