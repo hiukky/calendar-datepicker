@@ -16,6 +16,7 @@ import { Header, MonthSelector, YearSelector, DaysList } from './components'
 
 const Calendar = ({
   value,
+  reset,
   onChange,
   onChangeActiveDate,
   onDisabledDayError,
@@ -47,18 +48,6 @@ const Calendar = ({
     isYearSelectorOpen: false,
   })
 
-  useEffect(() => {
-    const handleKeyUp = ({ key }) => {
-      /* istanbul ignore else */
-      if (key === 'Tab')
-        calendarElement.current.classList.remove('-noFocusOutline')
-    }
-    calendarElement.current.addEventListener('keyup', handleKeyUp, false)
-    return () => {
-      calendarElement.current.removeEventListener('keyup', handleKeyUp, false)
-    }
-  })
-
   const { getToday } = useLocaleUtils(locale)
   const { weekDays: weekDaysList, isRtl } = useLocaleLanguage(locale)
   const today = getToday()
@@ -82,9 +71,18 @@ const Calendar = ({
     return shallowClone(today)
   }
 
-  const activeDate = mainState.activeDate
-    ? shallowClone(mainState.activeDate)
-    : getComputedActiveDate()
+  const getActiveDate = () => {
+    if (mainState.activeDate && !reset) {
+      return shallowClone(mainState.activeDate)
+    }
+    if (reset) {
+      return shallowClone(today)
+    }
+
+    return getComputedActiveDate()
+  }
+
+  const activeDate = getActiveDate()
 
   const weekdays = weekDaysList.map(weekDay => (
     <abbr key={weekDay.name} title={weekDay.name} className="Calendar__weekDay">
@@ -133,6 +131,27 @@ const Calendar = ({
     })
     onChangeActiveDate(newActiveDate)
   }
+
+  useEffect(() => {
+    if (reset) {
+      setMainState({
+        ...mainState,
+        activeDate: today,
+      })
+    }
+  }, [reset])
+
+  useEffect(() => {
+    const handleKeyUp = ({ key }) => {
+      /* istanbul ignore else */
+      if (key === 'Tab')
+        calendarElement.current.classList.remove('-noFocusOutline')
+    }
+    calendarElement.current.addEventListener('keyup', handleKeyUp, false)
+    return () => {
+      calendarElement.current.removeEventListener('keyup', handleKeyUp, false)
+    }
+  })
 
   return (
     <div
@@ -219,6 +238,7 @@ Calendar.defaultProps = {
   calendarClassName: '',
   locale: 'en',
   value: null,
+  reset: false,
   renderFooter: () => null,
   customDaysClassName: [],
   onChangeActiveDate: () => {},
