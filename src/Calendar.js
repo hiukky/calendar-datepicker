@@ -97,6 +97,12 @@ const Calendar = ({
     })
   }
 
+  const handleKeyUp = ({ key }) => {
+    if (key === 'Tab') {
+      calendarElement.current.classList.remove('-noFocusOutline')
+    }
+  }
+
   const updateDate = () => {
     const newActiveDate = getDateAccordingToMonth(
       activeDate,
@@ -132,6 +138,12 @@ const Calendar = ({
     onChangeActiveDate(newActiveDate)
   }
 
+  const removeListener = () => {
+    if (calendarElement.current) {
+      calendarElement.current.addEventListener('keyup', handleKeyUp, false)
+    }
+  }
+
   useEffect(() => {
     if (reset) {
       setMainState({
@@ -142,15 +154,9 @@ const Calendar = ({
   }, [reset])
 
   useEffect(() => {
-    const handleKeyUp = ({ key }) => {
-      /* istanbul ignore else */
-      if (key === 'Tab')
-        calendarElement.current.classList.remove('-noFocusOutline')
-    }
-    calendarElement.current.addEventListener('keyup', handleKeyUp, false)
-    return () => {
-      calendarElement.current.removeEventListener('keyup', handleKeyUp, false)
-    }
+    removeListener()
+
+    return () => removeListener()
   })
 
   return (
