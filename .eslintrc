@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "airbnb",
-    "plugin:prettier/recommended",
-    "prettier/react"
-  ],
+  "extends": ["airbnb", "plugin:prettier/recommended", "prettier/react"],
   "env": {
     "browser": true,
     "commonjs": true,
@@ -19,6 +15,7 @@
     "react/prop-types": "off",
     "import/prefer-default-export": "off",
     "default-case": "off",
+    "react/jsx-props-no-spreading": "off",
     "max-len": [
       "warn",
       {
